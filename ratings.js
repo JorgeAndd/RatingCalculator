@@ -23,13 +23,26 @@ let walk = (node, sum, currentPossibilities = []) => {
         }
     } else {
         if(node.sum >= Math.floor(sum) && node.sum <= Math.ceil(sum)) {
-            console.log(node.currentPath.join(' + ') + ' = ' + sum);
             currentPossibilities.push(node.currentPath);
         }
-    }   
+    }
+    
+    return currentPossibilities;
 }
 
-let average = (5+5+5+5+4)/5;
+let removeDuplicates = (list) => {
+    let ordered = list.map(e => {
+        return e.sort();
+    });
+
+    return Array.from(new Set(ordered.map(JSON.stringify)), JSON.parse);
+}
+
+let printList = (list) => {
+    list.forEach(e => console.log(e.join(', ')));
+}
+
+let average = (5+5+5+5+3)/5;
 let root = {
     children: [],
     depth: 0,
@@ -40,5 +53,6 @@ let root = {
 
 let sum = average*parameters.numberOfRatings;
 
-walk(root, sum);
-console.log('done');
+let possibilities = walk(root, sum);
+let uniques = removeDuplicates(possibilities);
+printList(uniques);
